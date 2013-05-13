@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
+	
+	private static final String TAG = "main_activity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
