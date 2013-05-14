@@ -3,7 +3,7 @@ package com.novo.socalintegration;
 import android.app.Activity;
 import android.util.Log;
 
-import com.guyou.sina.SinaConfig;
+import com.guyou.socalize.config.SinaConfig;
 import com.sina.weibo.sdk.WeiboSDK;
 import com.sina.weibo.sdk.api.IWeiboAPI;
 

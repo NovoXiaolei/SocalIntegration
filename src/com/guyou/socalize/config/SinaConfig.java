@@ -1,4 +1,4 @@
-package com.guyou.sina;
+package com.guyou.socalize.config;
 
 public class SinaConfig{
 	private final String APP_KEY = "3322971079";
