@@ -20,12 +20,21 @@
         android:layout_below="@+id/textView1"
         android:text="@string/sina_authorize"
         />
+    
+    <Button
+        android:id="@+id/sina_o2authorize"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sina_ssoauthorize"
+        android:text="@string/sina_o2authorize"
+        />
+        
 
     <Button
         android:id="@+id/sina_share_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sina_ssoauthorize"
+        android:layout_below="@+id/sina_o2authorize"
         android:text="@string/sina_share" />
     <Button
         android:id="@+id/tecent_share_button"

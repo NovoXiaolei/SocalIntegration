@@ -19,12 +19,12 @@ public class PlatformControl{
 	
 
 
-	private Activity baseActivity;
+	private MainActivity baseActivity;
 
 	public static final int SINA_SHARE = 0;
 	public static final int TECENT_SHARE = 1;
 
-	public PlatformControl(Activity activity) {
+	public PlatformControl(MainActivity activity) {
 		baseActivity = activity;
 		initWeiboSDK();
 	}

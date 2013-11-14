@@ -1,17 +1,11 @@
 package com.novo.socalintegration;
 
-import java.text.SimpleDateFormat;
-
 import com.guyou.socalize.config.SinaConfig;
 import com.novo.sina.AuthDialogListener;
 import com.novo.socialintegration.R;
 import com.sina.weibo.sdk.api.BaseResponse;
 import com.sina.weibo.sdk.api.IWeiboHandler;
-import com.weibo.sdk.android.Oauth2AccessToken;
 import com.weibo.sdk.android.Weibo;
-import com.weibo.sdk.android.WeiboAuthListener;
-import com.weibo.sdk.android.WeiboDialogError;
-import com.weibo.sdk.android.WeiboException;
 import com.weibo.sdk.android.sso.SsoHandler;
 
 import android.os.Bundle;
@@ -36,6 +30,7 @@ public class MainActivity extends Activity implements OnClickListener, IWeiboHan
 	
 	//sso auth button
 	private Button sinaSSOAuthorizeButton;
+	private Button sinaO2AuthorizeButton;
 	
 	private SsoHandler mSsoHandler;
 
@@ -59,11 +54,13 @@ public class MainActivity extends Activity implements OnClickListener, IWeiboHan
 		sinaButton = (Button)findViewById(R.id.sina_share_button);
 		tecentButton = (Button)findViewById(R.id.tecent_share_button);
 		sinaSSOAuthorizeButton = (Button)findViewById(R.id.sina_ssoauthorize);
+		sinaO2AuthorizeButton = (Button)findViewById(R.id.sina_o2authorize);
 		
 		//bind the listener
 		sinaButton.setOnClickListener(this);
 		tecentButton.setOnClickListener(this);
 		sinaSSOAuthorizeButton.setOnClickListener(this);
+		sinaO2AuthorizeButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -88,8 +85,12 @@ public class MainActivity extends Activity implements OnClickListener, IWeiboHan
 		case R.id.sina_ssoauthorize:{
 			Log.d(TAG, "sso authorize");
 			mSsoHandler = new SsoHandler(MainActivity.this, mWeibo);
-			mSsoHandler.authorize(new AuthDialogListener(this), getPackageName());
+			mSsoHandler.authorize(new AuthDialogListener(this), this.getPackageName());
 			break;
+		}
+		case R.id.sina_o2authorize:{
+			Log.d(TAG, "oauth 2.0");
+			mWeibo.anthorize(this, new AuthDialogListener(this));
 		}
 		default:
 			break;

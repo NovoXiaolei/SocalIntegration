@@ -6,6 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="sina_share">新浪微博分享</string>
     <string name="tecent_share">腾讯微博分享</string>
-    <string name="sina_authorize">授权</string>
+    <string name="sina_authorize">单点授权</string>
+    <string name="sina_o2authorize">2.0授权</string>
 
 </resources>

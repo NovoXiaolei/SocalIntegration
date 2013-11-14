@@ -30,7 +30,7 @@ public class AuthDialogListener implements WeiboAuthListener {
 	@Override
 	public void onCancel() {
 		// TODO Auto-generated method stub
-		Log.d(TAG, "authdialoglistener cancel");
+		m_MainActivity.toastShow("Auth cancel");
 	}
 
 	@Override
@@ -51,12 +51,13 @@ public class AuthDialogListener implements WeiboAuthListener {
 	@Override
 	public void onError(WeiboDialogError error) {
 		// TODO Auto-generated method stub
+		m_MainActivity.toastShow("Auth error"+error.getMessage());
 	}
 
 	@Override
-	public void onWeiboException(WeiboException arg0) {
+	public void onWeiboException(WeiboException exception) {
 		// TODO Auto-generated method stub
-		
+		m_MainActivity.toastShow("Auth exception"+exception.getMessage());
 	}
 
 	public Oauth2AccessToken getAccessToken() {
