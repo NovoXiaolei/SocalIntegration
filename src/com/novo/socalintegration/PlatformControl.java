@@ -1,15 +1,12 @@
 package com.novo.socalintegration;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.guyou.socalize.config.SinaConfig;
 import com.sina.weibo.sdk.WeiboSDK;
-import com.sina.weibo.sdk.api.BaseResponse;
 import com.sina.weibo.sdk.api.IWeiboAPI;
-import com.sina.weibo.sdk.api.IWeiboHandler;
 import com.sina.weibo.sdk.api.SendMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMessage;
@@ -24,8 +21,8 @@ public class PlatformControl{
 
 	private Activity baseActivity;
 
-	private static final int SINA_SHARE = 0;
-	private static final int TECENT_SHARE = 1;
+	public static final int SINA_SHARE = 0;
+	public static final int TECENT_SHARE = 1;
 
 	public PlatformControl(Activity activity) {
 		baseActivity = activity;

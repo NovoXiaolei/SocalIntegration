@@ -3,6 +3,8 @@ package com.novo.socalintegration;
 import java.text.SimpleDateFormat;
 
 import com.guyou.socalize.config.SinaConfig;
+import com.novo.sina.AuthDialogListener;
+import com.novo.socialintegration.R;
 import com.sina.weibo.sdk.api.BaseResponse;
 import com.sina.weibo.sdk.api.IWeiboHandler;
 import com.weibo.sdk.android.Oauth2AccessToken;
@@ -14,7 +16,6 @@ import com.weibo.sdk.android.sso.SsoHandler;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -26,15 +27,15 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements OnClickListener, IWeiboHandler.Response{
 	
 	private static final String TAG = "main_activity";
-
-	public static Oauth2AccessToken accessToken;
 	
 	private Weibo mWeibo;
 	private PlatformControl mPlatformControl;
 	
 	private Button sinaButton;
 	private Button tecentButton;
-	private Button sinaAuthorizeButton;
+	
+	//sso auth button
+	private Button sinaSSOAuthorizeButton;
 	
 	private SsoHandler mSsoHandler;
 
@@ -46,15 +47,23 @@ public class MainActivity extends Activity implements OnClickListener, IWeiboHan
 		mPlatformControl.getWeiboAPI().responseListener(getIntent(), this);
 		mWeibo = Weibo.getInstance(new SinaConfig().getAPP_KEY(), new SinaConfig().getREDIRECT_URL(), new SinaConfig().getSCOPE());
 		if(null == mPlatformControl){
-			Log.e(TAG, "平台控制器生成未成功");
+			toastShow("platformcontrol init failed");
+		}
+		else
+		{
+			if(null == mWeibo)
+			{
+				toastShow("weibo init failed");
+			}
 		}
 		sinaButton = (Button)findViewById(R.id.sina_share_button);
 		tecentButton = (Button)findViewById(R.id.tecent_share_button);
-		sinaAuthorizeButton = (Button)findViewById(R.id.sina_authorize);
+		sinaSSOAuthorizeButton = (Button)findViewById(R.id.sina_ssoauthorize);
 		
+		//bind the listener
 		sinaButton.setOnClickListener(this);
 		tecentButton.setOnClickListener(this);
-		tecentButton.setOnClickListener(this);
+		sinaSSOAuthorizeButton.setOnClickListener(this);
 	}
 
 	@Override
@@ -69,16 +78,17 @@ public class MainActivity extends Activity implements OnClickListener, IWeiboHan
 		// TODO Auto-generated method stub
 		switch(v.getId()){
 		case R.id.sina_share_button:{
-			mPlatformControl.shareControl(0);
+			mPlatformControl.shareControl(PlatformControl.SINA_SHARE);
 			break;
 		}
 		case R.id.tecent_share_button:{
-			mPlatformControl.shareControl(1);
+			mPlatformControl.shareControl(PlatformControl.TECENT_SHARE);
 			break;
 		}
-		case R.id.sina_authorize:{
+		case R.id.sina_ssoauthorize:{
+			Log.d(TAG, "sso authorize");
 			mSsoHandler = new SsoHandler(MainActivity.this, mWeibo);
-			mSsoHandler.authorize(new AuthDialogListener(), getPackageName());
+			mSsoHandler.authorize(new AuthDialogListener(this), getPackageName());
 			break;
 		}
 		default:
@@ -121,45 +131,5 @@ public class MainActivity extends Activity implements OnClickListener, IWeiboHan
 		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 	}
 
-	class AuthDialogListener implements WeiboAuthListener{
 
-		@Override
-		public void onCancel() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onComplete(Bundle values) {
-			// TODO Auto-generated method stub
-			String code = values.getString("code");
-        	if(code != null){
-	        	Toast.makeText(MainActivity.this, "认证code成功", Toast.LENGTH_SHORT).show();
-	        	return;
-        	}
-            String token = values.getString("access_token");
-            String expires_in = values.getString("expires_in");
-            MainActivity.accessToken = new Oauth2AccessToken(token, expires_in);
-            if (MainActivity.accessToken.isSessionValid()) {
-//                AccessTokenKeeper.keepAccessToken(MainActivity.this,
-//                        accessToken);
-                Toast.makeText(MainActivity.this, "认证成功", Toast.LENGTH_SHORT)
-                        .show();
-            }
-		}
-
-		@Override
-		public void onError(WeiboDialogError arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onWeiboException(WeiboException arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	
 }

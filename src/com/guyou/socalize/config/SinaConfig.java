@@ -1,7 +1,7 @@
 package com.guyou.socalize.config;
 
 public class SinaConfig{
-	private final String APP_KEY = "3322971079";
+	private final String APP_KEY = "4083126278";
 	
 	//替换为开发者REDIRECT_URL
 	private final String REDIRECT_URL = "http://www.sina.com";
