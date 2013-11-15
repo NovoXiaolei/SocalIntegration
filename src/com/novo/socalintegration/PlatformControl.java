@@ -1,6 +1,5 @@
 package com.novo.socalintegration;
 
-import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
