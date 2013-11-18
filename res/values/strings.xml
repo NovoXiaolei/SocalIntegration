@@ -3,10 +3,12 @@
 
     <string name="app_name">SocalIntegration</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Hello world!</string>    
     <string name="sina_share">新浪微博分享</string>
     <string name="tecent_share">腾讯微博分享</string>
     <string name="sina_authorize">单点授权</string>
     <string name="sina_o2authorize">2.0授权</string>
+    <string name="sina">新浪微博</string>
+    <string name="tecent">腾讯微博</string>
 
 </resources>

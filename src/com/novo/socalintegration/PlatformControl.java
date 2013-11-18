@@ -4,17 +4,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.guyou.socalize.config.SinaConfig;
-import com.sina.weibo.sdk.WeiboSDK;
-import com.sina.weibo.sdk.api.IWeiboAPI;
-import com.sina.weibo.sdk.api.SendMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMessage;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.SendMessageToWeiboRequest;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 
 public class PlatformControl{
 
 	private static final String TAG = "PlatformControl";
 
-	private IWeiboAPI mSinaWeiboAPI;
+	private IWeiboShareAPI mSinaWeiboAPI;
 	
 
 
@@ -28,7 +28,7 @@ public class PlatformControl{
 		initWeiboSDK();
 	}
 	
-	public IWeiboAPI getWeiboAPI(){
+	public IWeiboShareAPI getWeiboAPI(){
 		return mSinaWeiboAPI;
 	}
 
@@ -59,7 +59,7 @@ public class PlatformControl{
 	}
 
 	private void initWeiboSDK() {
-		mSinaWeiboAPI = WeiboSDK.createWeiboAPI(baseActivity,
+		mSinaWeiboAPI = WeiboShareSDK.createWeiboAPI(baseActivity,
 				new SinaConfig().getAPP_KEY());
 	}
 
@@ -88,7 +88,7 @@ public class PlatformControl{
         req.transaction = String.valueOf(System.currentTimeMillis());// 用transaction唯一标识一个请求
         req.message = weiboMessage;
         // 发送请求消息到微博
-        mSinaWeiboAPI.sendRequest(baseActivity, req);
+        mSinaWeiboAPI.sendRequest(req);
     }
     
     /**
