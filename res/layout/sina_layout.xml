@@ -20,9 +20,15 @@
         
 
     <Button
-        android:id="@+id/sina_share_button"
+        android:id="@+id/sina_text_share_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sina_share" />
+        android:text="@string/sina_text_share" />
+    
+     <Button
+        android:id="@+id/sina_text_image_share_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sina_text_image_share" />
     
 </LinearLayout>
