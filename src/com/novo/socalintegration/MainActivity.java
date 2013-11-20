@@ -3,11 +3,11 @@ package com.novo.socalintegration;
 import com.novo.debug.util.DebugUtil;
 import com.novo.sina.SinaWeiboActivity;
 import com.novo.socialintegration.R;
+import com.novo.tecent.TecentWeiboActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -45,6 +45,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 		case R.id.tecent:
 		{
+			Intent intent = new Intent(this, TecentWeiboActivity.class);
+			startActivity(intent);
 			break;
 		}
 		default:

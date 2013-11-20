@@ -11,5 +11,7 @@
     <string name="sina_o2authorize">2.0授权</string>
     <string name="sina">新浪微博</string>
     <string name="tecent">腾讯微博</string>
-
+    <string name="tecent_text_share">文字分享</string>
+    <string name="tecent_text_image_share">图片文字分享</string>
+	<string name="tecent_authorize">单点授权</string>
 </resources>

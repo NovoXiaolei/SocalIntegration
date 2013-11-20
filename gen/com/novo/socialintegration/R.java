@@ -26,11 +26,15 @@ public final class R {
         public static final int sina_text_image_share_button=0x7f070006;
         public static final int sina_text_share_button=0x7f070005;
         public static final int tecent=0x7f070002;
+        public static final int tecent_ssoauthorize=0x7f070007;
+        public static final int tecent_text_image_share_button=0x7f070009;
+        public static final int tecent_text_share_button=0x7f070008;
         public static final int textView1=0x7f070000;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int sina_layout=0x7f030001;
+        public static final int tecent_layout=0x7f030002;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -42,7 +46,10 @@ public final class R {
         public static final int sina_text_image_share=0x7f050004;
         public static final int sina_text_share=0x7f050003;
         public static final int tecent=0x7f050009;
+        public static final int tecent_authorize=0x7f05000c;
         public static final int tecent_share=0x7f050005;
+        public static final int tecent_text_image_share=0x7f05000b;
+        public static final int tecent_text_share=0x7f05000a;
     }
     public static final class style {
         /** 
