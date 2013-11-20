@@ -1,5 +1,8 @@
 package com.novo.tecent;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.novo.common.SocialInterface;
 import com.novo.debug.util.DebugUtil;
 import com.novo.socialintegration.R;
@@ -13,9 +16,12 @@ import com.tencent.weibo.sdk.android.network.HttpCallback;
 
 import android.app.Activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.BaseTypes;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -51,9 +57,8 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 			return true;
 		}
 		else {
-			{
+				DebugUtil.TostShow(getApplicationContext(), "请给程序授权");
 				return false;
-			}
 		}
 	}
 	
@@ -117,6 +122,7 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 		}
 		
 		case R.id.tecent_text_image_share_button:{
+			share("Tecent share text and image!", "images/logo.png");
 			break;
 		}
 
@@ -144,19 +150,21 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 		if(isWeiboApiAccess()){
 			m_WeiboAPI.addWeibo(getApplicationContext(), str, FORMAT, m_longitude, m_latitude, 0, 0, mCallBack, null, BaseVO.TYPE_JSON);
 		}
-		else {
-			DebugUtil.TostShow(getApplicationContext(), "请为程序授权");
-		}
 	}
 
 	@Override
 	public void share(String str, String strPicPathAndName) {
 		// TODO Auto-generated method stub
 		if(isWeiboApiAccess()){
-			
-		}
-		else {
-			DebugUtil.TostShow(getApplicationContext(), "请为程序授权");
+			InputStream iStream = null;
+			try {
+				iStream = getAssets().open(strPicPathAndName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Bitmap bm = new BitmapDrawable(iStream).getBitmap();
+			m_WeiboAPI.addPic(getApplicationContext(), str, FORMAT, m_longitude, m_latitude, bm, 0, 0, mCallBack, null, BaseVO.TYPE_JSON);
 		}
 	}
 
