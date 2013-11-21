@@ -28,6 +28,14 @@
         android:layout_below="@+id/sina"
         android:text="@string/tecent"
         />
+    
+    <Button
+        android:id="@+id/weixin"
+        android:layout_width="fill_parent"
+        android:layout_height = "wrap_content"
+        android:layout_below="@+id/tecent"
+        android:text="@string/weixin"
+        />
         
 
 

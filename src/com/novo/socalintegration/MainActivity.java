@@ -4,6 +4,7 @@ import com.novo.util.DebugUtil;
 import com.novo.sina.SinaWeiboActivity;
 import com.novo.socialintegration.R;
 import com.novo.tecent.TecentWeiboActivity;
+import com.novo.tecent.WeiChatActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,6 +20,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	
 	private Button sinaButton;
 	private Button tecentButton;
+	private Button weixinButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,8 @@ public class MainActivity extends Activity implements OnClickListener{
 		DebugUtil.setDebugOpen(true);
 		sinaButton = (Button)findViewById(R.id.sina);
 		tecentButton = (Button)findViewById(R.id.tecent);
+		weixinButton = (Button)findViewById(R.id.weixin);
+		weixinButton.setOnClickListener(this);
 		//bind the listener
 		sinaButton.setOnClickListener(this);
 		tecentButton.setOnClickListener(this);
@@ -46,6 +50,11 @@ public class MainActivity extends Activity implements OnClickListener{
 		case R.id.tecent:
 		{
 			Intent intent = new Intent(this, TecentWeiboActivity.class);
+			startActivity(intent);
+			break;
+		}
+		case R.id.weixin:{
+			Intent intent = new Intent(this, WeiChatActivity.class);
 			startActivity(intent);
 			break;
 		}

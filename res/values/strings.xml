@@ -14,4 +14,8 @@
     <string name="tecent_text_share">文字分享</string>
     <string name="tecent_text_image_share">图片文字分享</string>
 	<string name="tecent_authorize">单点授权</string>
+	<string name="weixin_regist">注册到微信</string>
+	<string name="weixin_text_share">分享文字到微信</string>
+	<string name="weixin_text_image_share">分享图片文字到微信</string>
+	<string name="weixin">微信</string>
 </resources>

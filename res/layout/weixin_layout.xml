@@ -4,24 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	<Button
-        android:id="@+id/tecent_ssoauthorize"
+    <Button
+        android:id="@+id/weixin_regist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tecent_authorize"
+        android:text="@string/weixin_regist"
         />
     
     <Button
-        android:id="@+id/tecent_text_share_button"
+        android:id="@+id/weixin_text_share_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tecent_text_share"
+        android:text="@string/weixin_text_share"
         />
     
      <Button
-        android:id="@+id/tecent_text_image_share_button"
+        android:id="@+id/weixin_text_image_share_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tecent_text_image_share" 
+        android:text="@string/weixin_text_image_share" 
       	/>
+
 </LinearLayout>
