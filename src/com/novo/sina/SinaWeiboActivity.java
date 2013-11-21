@@ -5,7 +5,7 @@ import java.io.InputStream;
 
 import com.guyou.socalize.config.SinaConfig;
 import com.novo.common.SocialInterface;
-import com.novo.debug.util.DebugUtil;
+import com.novo.util.DebugUtil;
 import com.novo.socialintegration.R;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.novo.debug.util.DebugUtil;
+import com.novo.util.DebugUtil;
 import com.tencent.weibo.sdk.android.api.util.Util;
 import com.tencent.weibo.sdk.android.component.Authorize;
 import com.tencent.weibo.sdk.android.component.sso.OnAuthListener;

@@ -1,6 +1,6 @@
 package com.novo.socalintegration;
 
-import com.novo.debug.util.DebugUtil;
+import com.novo.util.DebugUtil;
 import com.novo.sina.SinaWeiboActivity;
 import com.novo.socialintegration.R;
 import com.novo.tecent.TecentWeiboActivity;

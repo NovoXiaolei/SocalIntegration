@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import com.novo.common.SocialInterface;
-import com.novo.debug.util.DebugUtil;
+import com.novo.util.DebugUtil;
 import com.novo.socialintegration.R;
 import com.tencent.weibo.sdk.android.api.WeiboAPI;
 import com.tencent.weibo.sdk.android.api.util.Util;
