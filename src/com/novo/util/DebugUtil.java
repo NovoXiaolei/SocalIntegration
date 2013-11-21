@@ -28,6 +28,6 @@ public class DebugUtil {
 	}
 	
 	public static void ToastShow(Context context, String content){
-		Toast.makeText(context, content, Toast.LENGTH_SHORT);
+		Toast.makeText(context, content, Toast.LENGTH_SHORT).show();
 	}
 }
