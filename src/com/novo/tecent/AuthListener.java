@@ -22,7 +22,7 @@ public class AuthListener implements OnAuthListener {
 	@Override
 	public void onAuthFail(int result, String error) {
 		// TODO Auto-generated method stub
-		DebugUtil.TostShow(baseActivity, "onWeiboNotInstalled"+" "+"result: "+
+		DebugUtil.ToastShow(baseActivity, "onWeiboNotInstalled"+" "+"result: "+
 					result+" "+"err: "+error);
 	}
 
@@ -42,7 +42,7 @@ public class AuthListener implements OnAuthListener {
 	@Override
 	public void onWeiBoNotInstalled() {
 		// TODO Auto-generated method stub
-		DebugUtil.TostShow(baseActivity, "onWeiboNotInstalled");
+		DebugUtil.ToastShow(baseActivity, "onWeiboNotInstalled");
 		
 		Intent intent = new Intent(baseActivity,Authorize.class);
 		baseActivity.startActivity(intent);
@@ -51,7 +51,7 @@ public class AuthListener implements OnAuthListener {
 	@Override
 	public void onWeiboVersionMisMatch() {
 		// TODO Auto-generated method stub
-		DebugUtil.TostShow(baseActivity, "onWeiboVersionMisMatch");
+		DebugUtil.ToastShow(baseActivity, "onWeiboVersionMisMatch");
 		
 		Intent intent = new Intent(baseActivity,Authorize.class);
 		baseActivity.startActivity(intent);

@@ -24,7 +24,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		DebugUtil.isDebugOpen = true;
+		DebugUtil.setDebugOpen(true);
 		sinaButton = (Button)findViewById(R.id.sina);
 		tecentButton = (Button)findViewById(R.id.tecent);
 		//bind the listener

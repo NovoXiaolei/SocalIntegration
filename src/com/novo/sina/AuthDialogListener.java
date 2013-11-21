@@ -3,7 +3,7 @@ package com.novo.sina;
 
 import java.text.SimpleDateFormat;
 
-import com.novo.debug.util.DebugUtil;
+import com.novo.util.DebugUtil;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;

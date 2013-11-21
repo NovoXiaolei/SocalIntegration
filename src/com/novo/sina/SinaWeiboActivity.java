@@ -110,7 +110,7 @@ public class SinaWeiboActivity extends Activity implements
 						public void onCancel() {
 							// TODO Auto-generated method stub
 							DebugUtil
-									.TostShow(SinaWeiboActivity.this, "用户取消下载");
+									.ToastShow(SinaWeiboActivity.this, "用户取消下载");
 						}
 
 					});
@@ -243,17 +243,17 @@ public class SinaWeiboActivity extends Activity implements
 		// TODO Auto-generated method stub
 		switch (response.errCode) {
 		case WBConstants.ErrorCode.ERR_OK: {
-			DebugUtil.TostShow(this, "分享成功");
+			DebugUtil.ToastShow(this, "分享成功");
 			break;
 		}
 		case WBConstants.ErrorCode.ERR_FAIL: {
-			DebugUtil.TostShow(this, "分享失败");
+			DebugUtil.ToastShow(this, "分享失败");
 			String str = "Error Code:" + response.errCode;
 			Log.e(TAG, str);
 			break;
 		}
 		case WBConstants.ErrorCode.ERR_CANCEL: {
-			DebugUtil.TostShow(this, "您已取消分享");
+			DebugUtil.ToastShow(this, "您已取消分享");
 			break;
 		}
 		default:

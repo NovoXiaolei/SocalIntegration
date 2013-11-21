@@ -57,7 +57,7 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 			return true;
 		}
 		else {
-				DebugUtil.TostShow(getApplicationContext(), "请给程序授权");
+				DebugUtil.ToastShow(getApplicationContext(), "请给程序授权");
 				return false;
 		}
 	}
@@ -80,11 +80,11 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 				ModelResult result = (ModelResult)object;
 				if(null!=result)
 				{
-					DebugUtil.TostShow(getApplicationContext(), "发送成功");
+					DebugUtil.ToastShow(getApplicationContext(), "发送成功");
 				}
 				else {
 					{
-						DebugUtil.TostShow(getApplicationContext(), "发送成功");						
+						DebugUtil.ToastShow(getApplicationContext(), "发送成功");						
 					}
 				}
 			}
