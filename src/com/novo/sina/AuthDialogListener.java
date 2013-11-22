@@ -9,6 +9,7 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -19,12 +20,12 @@ public class AuthDialogListener implements WeiboAuthListener {
 	
 	private Oauth2AccessToken m_AccessToken;
 	
-	private SinaWeiboActivity m_Activity;
+	private Context m_Context;
 	
 	
-	public AuthDialogListener(SinaWeiboActivity activity)
+	public AuthDialogListener(Context context)
 	{
-		m_Activity = activity;
+		this.m_Context = context;
 	}
 
 
@@ -41,7 +42,7 @@ public class AuthDialogListener implements WeiboAuthListener {
 		m_AccessToken = Oauth2AccessToken.parseAccessToken(values);
 		if(m_AccessToken.isSessionValid())
 		{
-			AccessTokenKeeper.writeAccessToken(m_Activity, m_AccessToken);
+			AccessTokenKeeper.writeAccessToken(m_Context, m_AccessToken);
 		}
 	}
 

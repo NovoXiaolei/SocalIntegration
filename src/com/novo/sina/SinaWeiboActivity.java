@@ -34,28 +34,24 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class SinaWeiboActivity extends Activity implements
-		IWeiboHandler.Response, SocialInterface, OnClickListener {
+		OnClickListener {
 	private final String TAG = "SinaWeiboActivity";
-
-	private WeiboAuth m_Weibo = null;
-	// 与微博客户端交互则需要使用这个接口类
-	private IWeiboShareAPI m_iWeiboApi = null;
-	private SsoHandler m_ssoHandler = null;
 
 	// Button
 	private Button m_SSOAuthorize;
 	private Button m_O2Authorize;
 	private Button m_shareTextButton;
 	private Button m_shareTextAndImageButton;
+	
+	private SinaWeiboSocial m_SinaWeiboSocial;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sina_layout);
-		if (initSDK()) {
-			initButton();
-		}
+		m_SinaWeiboSocial = new SinaWeiboSocial(this);
+		initButton();
 	}
 
 	private void initButton() {
@@ -84,137 +80,35 @@ public class SinaWeiboActivity extends Activity implements
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
-		m_iWeiboApi.handleWeiboResponse(intent, this);
+		m_SinaWeiboSocial.handleWeiboResponseIntent(intent);
 	}
 
-	@Override
-	public boolean initSDK() {
-		// TODO Auto-generated method stub
-		m_Weibo = new WeiboAuth(this, new SinaConfig().getAPP_KEY(),
-				new SinaConfig().getREDIRECT_URL(), new SinaConfig().getSCOPE());
-		if (null == m_Weibo) {
-			DebugUtil.LogError(TAG, TAG + "m_weibo init failed");
-			return false;
-		}
-		m_iWeiboApi = WeiboShareSDK.createWeiboAPI(this,
-				new SinaConfig().getAPP_KEY());
-		if (null == m_iWeiboApi) {
-			DebugUtil.LogError(TAG, TAG + "m_iWeiboApi init failed");
-			return false;
-		}
-		if (!m_iWeiboApi.isWeiboAppInstalled()) {
-			m_iWeiboApi
-					.registerWeiboDownloadListener(new IWeiboDownloadListener() {
-
-						@Override
-						public void onCancel() {
-							// TODO Auto-generated method stub
-							DebugUtil
-									.ToastShow(SinaWeiboActivity.this, "用户取消下载");
-						}
-
-					});
-		}
-		m_iWeiboApi.handleWeiboResponse(getIntent(), this);
-		return true;
-	}
-
-	@Override
-	public void share(String str) {
-		// TODO Auto-generated method stub
-		TextObject textObject = new TextObject();
-		textObject.text = str;
-		// 三方到微博
-		// 初始化微博的分享消息
-		WeiboMessage weiboMessage = new WeiboMessage();
-		// 放文本消息
-		weiboMessage.mediaObject = textObject;
-		// 初始化从三方到微博的消息请求
-		SendMessageToWeiboRequest req = new SendMessageToWeiboRequest();
-		req.transaction = String.valueOf(System.currentTimeMillis());// 用transaction唯一标识一个请求
-		req.message = weiboMessage;
-		// 发送请求消息到微博
-		m_iWeiboApi.sendRequest(req);
-	}
-
-	@Override
-	public void share(String str, String strPicPathAndName) {
-		// TODO Auto-generated method stub
-		TextObject textObject1 = new TextObject();
-		textObject1.text =str;
-		
-		ImageObject imageObject1 = new ImageObject();
-		InputStream inputStream = null;
-		try {
-			inputStream =getAssets().open(strPicPathAndName);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		BitmapDrawable drawable = new BitmapDrawable(inputStream);
-		Bitmap image =drawable.getBitmap();
-		imageObject1.setImageObject(image);
-		WeiboMultiMessage multiMessage1 = new WeiboMultiMessage();
-		multiMessage1.textObject = textObject1;
-		multiMessage1.imageObject = imageObject1;
-		SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
-		request.transaction = String.valueOf(System.currentTimeMillis());
-		request.multiMessage = multiMessage1;
-		if(m_iWeiboApi.getWeiboAppSupportAPI()>10351)
-		{
-			m_iWeiboApi.sendRequest(request);
-		}
-		else {
-			DebugUtil.LogError(TAG, "sina api is low");
-		}
-		
-	}
-
-	@Override
-	public void share(String str, String strPicPath, String strURL) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private boolean reqWeibo() {
-		if (m_iWeiboApi.checkEnvironment(true)) {
-			boolean isDone = m_iWeiboApi.registerApp();
-			if (isDone) {
-				DebugUtil.LogError(TAG, "********微博注册成功");
-			}
-			return isDone;
-		}
-		return false;
-	}
-
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		int viewId = v.getId();
 		switch (viewId) {
 		case R.id.sina_ssoauthorize: {
-			DebugUtil.LogDebug(TAG, "ssoauthorize");
-			m_ssoHandler = new SsoHandler(this, m_Weibo);
-			DebugUtil.LogError(TAG, getPackageName());
-			m_ssoHandler.authorize(new AuthDialogListener(this));
+			m_SinaWeiboSocial.ssoAuthorize();
 			break;
 		}
 		case R.id.sina_o2authorize: {
 			DebugUtil.LogDebug(TAG, "o2authorize");
-			m_Weibo.anthorize(new AuthDialogListener(this));
+			m_SinaWeiboSocial.o2Authorize();
 			break;
 		}
 		case R.id.sina_text_share_button: {
-			if (reqWeibo()) {
-				share("sina refacotr test");
+			if (m_SinaWeiboSocial.reqWeibo()) {
+				m_SinaWeiboSocial.share("sina refacotr test");
 			}
 			break;
 		}
 		
 		case R.id.sina_text_image_share_button:{
-			if(reqWeibo())
+			if(m_SinaWeiboSocial.reqWeibo())
 			{
-				share("分享文字与图片测试","logo.png");
+				m_SinaWeiboSocial.share("分享文字与图片测试","logo.png");
 			}
 			break;
 		}
@@ -227,9 +121,7 @@ public class SinaWeiboActivity extends Activity implements
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		if (m_ssoHandler != null) {
-			m_ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-		}
+		m_SinaWeiboSocial.ssoAuthorizeCallBack(requestCode, resultCode, data);
 	}
 
 	@Override
@@ -237,28 +129,5 @@ public class SinaWeiboActivity extends Activity implements
 		// TODO Auto-generated method stub
 		return super.onKeyDown(keyCode, event);
 	}
-
-	@Override
-	public void onResponse(BaseResponse response) {
-		// TODO Auto-generated method stub
-		switch (response.errCode) {
-		case WBConstants.ErrorCode.ERR_OK: {
-			DebugUtil.ToastShow(this, "分享成功");
-			break;
-		}
-		case WBConstants.ErrorCode.ERR_FAIL: {
-			DebugUtil.ToastShow(this, "分享失败");
-			String str = "Error Code:" + response.errCode;
-			Log.e(TAG, str);
-			break;
-		}
-		case WBConstants.ErrorCode.ERR_CANCEL: {
-			DebugUtil.ToastShow(this, "您已取消分享");
-			break;
-		}
-		default:
-			break;
-		}
-	}
-
+	
 }

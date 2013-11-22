@@ -1,5 +1,9 @@
 package com.novo.socalintegration;
 
-public class Social {
+import android.app.Activity;
+
+import com.novo.common.SocialInterface;
+
+public  class Social extends Activity{
 
 }
