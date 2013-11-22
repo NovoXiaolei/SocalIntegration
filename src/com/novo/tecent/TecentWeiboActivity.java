@@ -26,40 +26,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class TecentWeiboActivity extends Activity implements OnClickListener,SocialInterface  {
+public class TecentWeiboActivity extends Activity implements OnClickListener{
 
 	private final String TAG = "TecentWeiboActivity";
-	private final String FORMAT = "json";
 	
 	private Button m_authorizeButton;
 	private Button m_shareTextButton;
 	private Button m_shareTextAndImageButton;
-	private WeiboAPI m_WeiboAPI;
 	
-	private Location m_Location;
-	private double m_longitude = 0d;
-	private double m_latitude = 0d;
+	private TecentWeibo m_tencTecentWeibo;
 	
-	private HttpCallback mCallBack;
+
 	private void  init(){
 		initButton();
-		
-		m_Location = Util.getLocation(getApplicationContext());
-		if(m_Location !=null){
-			m_longitude = m_Location.getLongitude();
-			m_latitude = m_Location.getLatitude();
-		}
-	}
-	
-	private boolean isWeiboApiAccess(){
-		if(null!=m_WeiboAPI && false == m_WeiboAPI.isAuthorizeExpired(getApplicationContext()))
-		{
-			return true;
-		}
-		else {
-				DebugUtil.ToastShow(getApplicationContext(), "请给程序授权");
-				return false;
-		}
 	}
 	
 	private void initButton(){
@@ -72,23 +51,6 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 		m_shareTextAndImageButton = (Button)findViewById(R.id.tecent_text_image_share_button);
 		m_shareTextAndImageButton.setOnClickListener(this);
 		
-		mCallBack = new HttpCallback() {
-			
-			@Override
-			public void onResult(Object object) {
-				// TODO Auto-generated method stub
-				ModelResult result = (ModelResult)object;
-				if(null!=result)
-				{
-					DebugUtil.ToastShow(getApplicationContext(), "发送成功");
-				}
-				else {
-					{
-						DebugUtil.ToastShow(getApplicationContext(), "发送成功");						
-					}
-				}
-			}
-		};
 	}
 	
 	@Override
@@ -98,6 +60,8 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 		setContentView(R.layout.tecent_layout);
 		
 		init();
+		m_tencTecentWeibo = new TecentWeibo(this);
+		
 	}
 
 	@Override
@@ -105,73 +69,23 @@ public class TecentWeiboActivity extends Activity implements OnClickListener,Soc
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.tecent_ssoauthorize:{
-			long appid = Long.valueOf(Util.getConfig().getProperty("APP_KEY"));
-			String app_secret = Util.getConfig().getProperty("APP_KEY_SEC");
-			AuthHelper.register(this.getApplicationContext(), appid, app_secret, new AuthListener(this));
-			AuthHelper.auth(this, "");
-			
-			if(initSDK()){
-				DebugUtil.LogError(TAG, "m_Weibo init successful");
-			}
+			m_tencTecentWeibo.ssoAuthorize();
 			break;
 		}
 		
 		case R.id.tecent_text_share_button:{
-			share("Tecent share text test!");
+			m_tencTecentWeibo.share("Tecent share text test!");
 			break;
 		}
 		
 		case R.id.tecent_text_image_share_button:{
-			share("Tecent share text and image!", "images/logo.png");
+			m_tencTecentWeibo.share("Tecent share text and image!", "images/logo.png");
 			break;
 		}
 
 		default:
 			break;
 		}
-	}
-
-	@Override
-	public boolean initSDK() {
-		AccountModel model = new AccountModel();
-		String accessToken = Util.getSharePersistent(getApplicationContext(), "ACCESS_TOKEN");
-		model.setAccessToken(accessToken);
-		m_WeiboAPI = new WeiboAPI(model);
-		if(null != m_WeiboAPI)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public void share(String str) {
-		// TODO Auto-generated method stub
-		if(isWeiboApiAccess()){
-			m_WeiboAPI.addWeibo(getApplicationContext(), str, FORMAT, m_longitude, m_latitude, 0, 0, mCallBack, null, BaseVO.TYPE_JSON);
-		}
-	}
-
-	@Override
-	public void share(String str, String strPicPathAndName) {
-		// TODO Auto-generated method stub
-		if(isWeiboApiAccess()){
-			InputStream iStream = null;
-			try {
-				iStream = getAssets().open(strPicPathAndName);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Bitmap bm = new BitmapDrawable(iStream).getBitmap();
-			m_WeiboAPI.addPic(getApplicationContext(), str, FORMAT, m_longitude, m_latitude, bm, 0, 0, mCallBack, null, BaseVO.TYPE_JSON);
-		}
-	}
-
-	@Override
-	public void share(String str, String strPicPath, String strURL) {
-		// TODO Auto-generated method stub
-		
 	}
 
 

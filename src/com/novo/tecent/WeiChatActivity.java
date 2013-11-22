@@ -91,4 +91,10 @@ public class WeiChatActivity extends Activity implements OnClickListener, Social
 		}
 	}
 
+	@Override
+	public void ssoAuthorize() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

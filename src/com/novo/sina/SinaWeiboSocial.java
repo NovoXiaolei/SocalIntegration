@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import com.guyou.socalize.config.SinaConfig;
 import com.novo.common.SocialInterface;
-import com.novo.socalintegration.Social;
 import com.novo.util.DebugUtil;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
@@ -32,7 +31,7 @@ import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.constant.WBConstants;
 import com.sina.weibo.sdk.exception.WeiboException;
 
-public class SinaWeiboSocial extends Social implements SocialInterface, IWeiboHandler.Response{
+public class SinaWeiboSocial extends Activity implements SocialInterface, IWeiboHandler.Response{
 
 	private final String TAG = "SinaWeiboSocial";
 	

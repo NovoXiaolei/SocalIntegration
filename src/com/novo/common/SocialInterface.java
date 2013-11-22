@@ -3,6 +3,8 @@ package com.novo.common;
 public interface SocialInterface {
 	//初始化sdk
 	public boolean initSDK();
+	
+	public void ssoAuthorize();
 	//简单的分享文字
 	public void share(String str);
 	

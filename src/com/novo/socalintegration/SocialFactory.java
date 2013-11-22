@@ -21,9 +21,8 @@ public class SocialFactory{
 		
 	}
 	
-	public Social getPlatform(int platformType)
+	public void getPlatform(int platformType)
 	{
-		Social social = null;
 		switch (platformType) {
 		case PlatformConfig.SINA_SHARE:
 		{
@@ -37,6 +36,5 @@ public class SocialFactory{
 		default:
 			break;
 		}
-		return social;
 	}
 }
