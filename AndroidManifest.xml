@@ -45,8 +45,8 @@
         </activity>
         <!-- WeiChatActivity -->
 		<activity
-		    android:name = "com.novo.tecent.WeiChatActivity">
-		    
+		    android:name = "com.novo.tecent.WeiChatActivity"
+		    android:exported = "true">
 		</activity>
         
         

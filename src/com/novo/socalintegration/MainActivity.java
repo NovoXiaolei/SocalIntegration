@@ -56,6 +56,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		case R.id.weixin:{
 			Intent intent = new Intent(this, WeiChatActivity.class);
 			startActivity(intent);
+			finish();
 			break;
 		}
 		default:
